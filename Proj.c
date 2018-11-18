@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
 typedef struct CSG *CSGLIST;
 struct CSG {
@@ -8,6 +9,25 @@ struct CSG {
     char Grade[2];
 };
 typedef CSGLIST CSGHASHTABLE[1009];
+
+
+//New CSG tuple
+CSGLIST new_CSG(char* Courses, int StudentId, char* Grade);
+CSGLIST new_CSG(char* Courses, int StudentId, char* Grade){
+    CSGLIST csg = (CSGLIST)malloc(sizeof(struct CSG));
+    if(sizeof(Courses)>5){
+        printf("Wrong Course name length");
+        return NULL;
+    }
+    if(sizeof(Grade)>2){
+        printf("Wrong Grade length");
+        return NULL;
+    }
+    strcpy(csg->Courses,Courses);
+    csg->StudentId=StudentId;
+    strcpy(csg->Grade,Grade);
+    return csg;
+}
 
 typedef struct SNAP *SNAPLIST;
 struct SNAP {
@@ -18,12 +38,52 @@ struct SNAP {
 };
 typedef SNAPLIST SANPHASHTABLE[1009];
 
+//new SNAP tuple
+SNAPLIST new_SNAP(int StudentId, char* Name, char* Address, char* Phone);
+SNAPLIST new_SNAP(int StudentId, char* Name, char* Address, char* Phone){
+    SNAPLIST snap = (SNAPLIST)malloc(sizeof(struct SNAP));
+    if(sizeof(Name)>30){
+        printf("Wrong Name length");
+        return NULL;
+    }
+    if(sizeof(Address)>50){
+        printf("Wrong Address length");
+        return NULL;
+    }
+    if(sizeof(Phone)>8){
+        printf("Wrong Phone length");
+        return NULL;
+    }
+    strcpy(snap->Name,Name);
+    snap->StudentId=StudentId;
+    strcpy(snap->Address,Address);
+    strcpy(snap->Phone, Phone);
+    return snap;
+}
+
 typedef struct CP *CPLIST;
 struct CP {
     char Courses[5];
     char Prerequisite[5];
 };
 typedef CPLIST CPHASHTABLE[1009];
+
+//New CP tuple
+CPLIST new_CP(char* Courses, char* Prerequisite);
+CPLIST new_CP(char* Courses, char* Prerequisite){
+    CPLIST cp = (CPLIST)malloc(sizeof(struct CP));
+    if(sizeof(Courses)>5){
+        printf("Wrong Course name length");
+        return NULL;
+    }
+    if(sizeof(Prerequisite)>5){
+        printf("Wrong Prerequisite length");
+        return NULL;
+    }
+    strcpy(cp->Courses,Courses);
+    strcpy(cp->Prerequisite,Prerequisite);
+    return cp;
+}
 
 typedef struct CDH *CDHLIST;
 struct CDH {
@@ -33,12 +93,51 @@ struct CDH {
 };
 typedef CDHLIST CDHHASHTABLE[1009];
 
+//new CDH tuple
+CDHLIST new_CDH( char* Courses, char* Day, char* Hour);
+CDHLIST new_CDH( char* Courses, char* Day, char* Hour){
+    CDHLIST cdh = (CDHLIST)malloc(sizeof(struct CDH));
+    if(sizeof(Courses)>5){
+        printf("Wrong Courses length");
+        return NULL;
+    }
+    if(sizeof(Day)>2){
+        printf("Wrong Day length");
+        return NULL;
+    }
+    if(sizeof(Hour)>3){
+        printf("Wrong Hour length");
+        return NULL;
+    }
+    strcpy(cdh->Courses,Courses);
+    strcpy(cdh->Day,Day);
+    strcpy(cdh->Hour, Hour);
+    return cdh;
+}
+
 typedef struct CR *CRLIST;
 struct CR {
     char Courses[5];
     char Room[30];
 };
 typedef CRLIST CRHASHTABLE[1009];
+
+//New CR tuple
+CRLIST new_CR(char* Courses, char* Room);
+CRLIST new_CR(char* Courses, char* Room){
+    CRLIST cr = (CRLIST)malloc(sizeof(struct CR));
+    if(sizeof(Courses)>5){
+        printf("Wrong Course name length");
+        return NULL;
+    }
+    if(sizeof(Room)>5){
+        printf("Wrong Room length");
+        return NULL;
+    }
+    strcpy(cr->Courses,Courses);
+    strcpy(cr->Room,Room);
+    return cr;
+}
 
 int hashing(char* key);
 int hashing(char* key) {
