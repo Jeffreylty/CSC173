@@ -61,6 +61,112 @@ CSGHASHTABLE* insert_CSG(char* Courses, int StudentId, char* Grade, CSGHASHTABLE
     
 }
 
+//print a tuple in CSG
+int print_CSG(CSGLIST csg);
+int print_CSG(CSGLIST csg){
+	if (csg != NULL){
+		printf("(%s, %d, %s) ", csg->Courses, csg->StudentId, csg->Grade);
+	}
+	return 1;
+}
+
+//print the table of CSG
+int print_CSGTable(CSGHASHTABLE csgt);
+int print_CSGTable(CSGHASHTABLE csgt){
+	for(int i = 0; i < 1009; i++){
+		if (csgt[i] != NULL){
+			print_CSG(csgt[i]);
+		}
+	}
+	printf("\n");
+	return 1;
+}
+
+//print a tuple in SNAP
+int print_SNAP(SNAPLIST snap);
+int print_SNAP(SNAPLIST snap){
+	if (snap != NULL){
+		printf("(%d, %s, %s, %s) ", snap->StudentId, snap->Name, snap->Address, snap->Phone);
+	}
+	return 1;
+}
+
+//print the table of SNAP
+int print_SNAPTable(SNAPHASHTABLE snapt);
+int print_SNAPTable(SNAPHASHTABLE snapt){
+	for(int i = 0; i < 1009; i++){
+		if (snapt[i] != NULL){
+			print_SNAP(snapt[i]);
+		}
+	}
+	printf("\n");
+	return 1;
+}
+
+//print a tuple in CP
+int print_CP(CPLIST cp);
+int print_CP(CPLIST cp){
+	if (cp != NULL){
+		printf("(%s, %s) ", cp->Courses, cp->Prerequisite);
+	}
+	return 1;
+}
+
+//print the table of CP
+int print_CPTable(CPHASHTABLE cpt);
+int print_CPTable(CPHASHTABLE cpt){
+	for(int i = 0; i < 1009; i++){
+		if (cpt[i] != NULL){
+			print_CP(cpt[i]);
+		}
+	}
+	printf("\n");
+	return 1;
+}
+
+//print a tuple in CDH
+int print_CDH(CDHLIST cdh);
+int print_CDH(CDHLIST cdh){
+	if (csg != NULL){
+		printf("(%s, %s, %s) ", cdh->Courses, cdh->Day, cdh->Hour);
+	}
+	return 1;
+}
+
+//print the table of CDH
+int print_CDHTable(CDHHASHTABLE cdht);
+int print_CDHTable(CDHHASHTABLE cdht){
+	for(int i = 0; i < 1009; i++){
+		if (cdht[i] != NULL){
+			print_CDH(cdht[i]);
+		}
+	}
+	printf("\n");
+	return 1;
+}
+
+//print a tuple in CR
+int print_CR(CRLIST cr);
+int print_CR(CRLIST cr){
+	if (csg != NULL){
+		printf("(%s, %s) ", cr->Courses, cr->Room);
+	}
+	return 1;
+}
+
+//print the table of CR
+int print_CRTable(CRHASHTABLE crt);
+int print_CRTable(CRHASHTABLE crt){
+	for(int i = 0; i < 1009; i++){
+		if (crt[i] != NULL){
+			print_CR(crt[i]);
+		}
+	}
+	printf("\n");
+	return 1;
+}
+
+
 int main(void) {
 	//part 1.3
 	//populate the tables with the data given in the figures
