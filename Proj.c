@@ -315,6 +315,45 @@ int print_CRTable(CRHASHTABLE crt){
 	return 1;
 }
 
+//part 2
+char* getStudCoursGrade(char* name, char* course){
+	SNAPHASHTABLE idname = lookup_SNAP("*", name, "*", "*", StudentID-Name-Address-Phone);
+	if(idname[0] != null) {
+		char* id = idname[0]->StudentID;
+	}else{
+		return "Student doesn't exist";
+	}
+	CSGHASHTABLE idgrade = lookup_CSG(course, id, "*", Courses-StudentID-Grade);
+	if(idgrade[0] != null) {
+		return idgrade[0]->Grade;
+	}else{
+		return "Student doesn't take that course";
+	}
+}
+	
+char* getStudPlace(char* name, char* day, char* hour){
+	SNAPHASHTABLE idname = lookup_SNAP("*", name, "*", "*", StudentID-Name-Address-Phone);
+	if(idname[0] != null) {
+		char* id = idname[0]->StudentID;
+	}else{
+		return "Student doesn't exist";
+	}
+	CSGHASHTABLE idgrade = lookup_CSG("*", id, "*", Courses-StudentID-Grade);
+	CDHHASHTABLE timecourse = lookup_CDH("*", day, hour, Courses-Day-Hour);
+	if(idgrade[0] != null & timecourse[0] != null) {
+		for(int i = 0; i < (int) (sizeof(timecourse) / sizeof(timecourse[0])) - 1, i++){
+			for(int j = 0; j < (int) (sizeof(idgrade) / sizeof(idgrade[0])) - 1, j++){
+				if(strcmp(timecourse[i]->Courses, idgrade[j]->Courses) == 0){
+					CRHASHTABLE courseroom = lookup_CR(idgrade[j]->Courses, "*", Courses-Room);
+					return courseroom[0]->Room;
+				}
+			}
+		}
+	}else{
+		return "Student doesn't take a course at that time";
+	}
+}
+
 
 int main(void) {
 	//part 1.3
