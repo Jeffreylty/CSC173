@@ -8,6 +8,7 @@ struct CSG {
     char Courses[5];
     int StudentId;
     char Grade[2];
+    CSGLIST *next;
 };
 typedef CSGLIST CSGHASHTABLE[1009];
 
@@ -28,15 +29,14 @@ CSGLIST new_CSG(char* Courses, int StudentId, char* Grade){
     CSGLIST csg = (CSGLIST)malloc(sizeof(struct CSG));
     if(strlen(Courses)>5){
         printf("Wrong Course length");
-        return NULL;
     }
     if(strlen(Grade)>2){
         printf("Wrong Grade length");
-        return NULL;
     }
     strncpy(csg->Courses,Courses,5);
     csg->StudentId=StudentId;
     strncpy(csg->Grade,Grade,2);
+    csg->next= NULL;
     return csg;
 }
 
@@ -46,6 +46,7 @@ struct SNAP {
     char Name[30];
     char Address[50];
     char Phone[8];
+    SNAPLIST *next;
 };
 typedef SNAPLIST SANPHASHTABLE[1009];
 
@@ -65,11 +66,9 @@ SNAPLIST new_SNAP(int StudentId, char* Name, char* Address, char* Phone){
     SNAPLIST snap = (SNAPLIST)malloc(sizeof(struct SNAP));
     if(strlen(Name)>30){
         printf("Wrong Name length");
-        return NULL;
     }
     if(strlen(Address)>50){
         printf("Wrong Address length");
-        return NULL;
     }
     if(strlen(Phone)>8){
         printf("Wrong Phone length");
@@ -79,6 +78,7 @@ SNAPLIST new_SNAP(int StudentId, char* Name, char* Address, char* Phone){
     snap->StudentId=StudentId;
     strncpy(snap->Address,Address,50);
     strncpy(snap->Phone, Phone,8);
+    snap->next= NULL;
     return snap;
 }
 
@@ -86,6 +86,7 @@ typedef struct CP *CPLIST;
 struct CP {
     char Courses[5];
     char Prerequisite[5];
+    CPLIST *next;
 };
 typedef CPLIST CPHASHTABLE[1009];
 
@@ -105,14 +106,13 @@ CPLIST new_CP(char* Courses, char* Prerequisite){
     CPLIST cp = (CPLIST)malloc(sizeof(struct CP));
     if(strlen(Courses)>5){
         printf("Wrong Course name length");
-        return NULL;
     }
     if(strlen(Prerequisite)>5){
         printf("Wrong Prerequisite length");
-        return NULL;
     }
     strncpy(cp->Courses,Courses,5);
     strncpy(cp->Prerequisite,Prerequisite,5);
+    cp->next= NULL;
     return cp;
 }
 
@@ -121,6 +121,7 @@ struct CDH {
     char Courses[5];
     char Day[2];
     char Hour[3];
+    CDHLIST *next;
 };
 typedef CDHLIST CDHHASHTABLE[1009];
 
@@ -139,19 +140,17 @@ CDHLIST new_CDH( char* Courses, char* Day, char* Hour){
     CDHLIST cdh = (CDHLIST)malloc(sizeof(struct CDH));
     if(strlen(Courses)>5){
         printf("Wrong Courses length");
-        return NULL;
     }
     if(strlen(Day)>2){
         printf("Wrong Day length");
-        return NULL;
     }
     if(strlen(Hour)>3){
         printf("Wrong Hour length");
-        return NULL;
     }
     strncpy(cdh->Courses,Courses,5);
     strncpy(cdh->Day,Day,2);
     strncpy(cdh->Hour, Hour,3);
+    cdh->next= NULL;
     return cdh;
 }
 
@@ -159,6 +158,7 @@ typedef struct CR *CRLIST;
 struct CR {
     char Courses[5];
     char Room[30];
+    CRLIST *next;
 };
 typedef CRLIST CRHASHTABLE[1009];
 
@@ -178,14 +178,13 @@ CRLIST new_CR(char* Courses, char* Room){
     CRLIST cr = (CRLIST)malloc(sizeof(struct CR));
     if(strlen(Courses)>5){
         printf("Wrong Course name length");
-        return NULL;
     }
     if(strlen(Room)>5){
         printf("Wrong Room length");
-        return NULL;
     }
     strncpy(cr->Courses,Courses,5);
     strncpy(cr->Room,Room,5);
+    cr->next= NULL;
     return cr;
 }
 
@@ -200,14 +199,22 @@ int hashing(char* key) {
     return sum % 1009;
 }
 
-CSGHASHTABLE* insert_CSG(char* Courses, int StudentId, char* Grade, CSGHASHTABLE* CSGHASHTABLE);
-CSGHASHTABLE* insert_CSG(char* Courses, int StudentId, char* Grade, CSGHASHTABLE* CSGHASHTABLE){
-    int index = hashing(Courses);
+//insert CSG tuple into CSGTABLE
+CSGHASHTABLE* insert_CSG(CSGLIST csg, CSGHASHTABLE* CSGHASHTABLE);
+CSGHASHTABLE* insert_CSG(CSGLIST csg, CSGHASHTABLE* CSGHASHTABLE){
+    int index = hashing(csg->Courses);
     CSGLIST* position =CSGHASHTABLE[index];
-    while(position != NULL){
-        
+//    CSGLIST* first=CSGHASHTABLE[index];
+    while((*position) != NULL){
+        if(equal_CSG(csg, (*position))){
+            printf("CSG tuple already exists\n");
+            return CSGHASHTABLE;
+        }else{
+            position=(*position)->next;
+        }
     }
-    
+    *position = csg;
+    return CSGHASHTABLE;
 }
 
 //print a tuple in CSG
