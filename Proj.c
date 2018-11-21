@@ -48,7 +48,7 @@ struct SNAP {
     char Phone[8];
     SNAPLIST next;
 };
-typedef SNAPLIST SANPHASHTABLE[1009];
+typedef SNAPLIST SNAPHASHTABLE[1009];
 
 //compare two SNAP tuple if they are same or not
 bool equal_SNAP(SNAPLIST snap1, SNAPLIST snap2);
@@ -215,6 +215,76 @@ CSGHASHTABLE* insert_CSG(CSGLIST csg, CSGHASHTABLE* CSGHASHTABLE){
     }
     *position = csg;
     return CSGHASHTABLE;
+}
+
+//insert SNAP tuple into SNAPTABLE
+SNAPHASHTABLE* insert_SNAP(SNAPLIST snap, SNAPHASHTABLE* SNAPHASHTABLE);
+SNAPHASHTABLE* insert_SNAP(SNAPLIST snap, SNAPHASHTABLE* SNAPHASHTABLE){
+    char* str= NULL;
+    sprintf(str,"%d", snap->StudentId);
+    int index = hashing(str);
+    SNAPLIST* position =SNAPHASHTABLE[index];
+    while((*position) != NULL){
+        if(equal_SNAP(snap, (*position))){
+            printf("SNAP tuple already exists\n");
+            return SNAPHASHTABLE;
+        }else{
+            position=&(*position)->next;
+        }
+    }
+    *position = snap;
+    return SNAPHASHTABLE;
+}
+
+//insert CP tuple into CPTABLE
+CPHASHTABLE* insert_CP(CPLIST cp, CPHASHTABLE* CPHASHTABLE);
+CPHASHTABLE* insert_CP(CPLIST cp, CPHASHTABLE* CPHASHTABLE){
+    int index = hashing(cp->Courses);
+    CPLIST* position =CPHASHTABLE[index];
+    while((*position) != NULL){
+        if(equal_CP(cp, (*position))){
+            printf("CP tuple already exists\n");
+            return CPHASHTABLE;
+        }else{
+            position=&(*position)->next;
+        }
+    }
+    *position = cp;
+    return CPHASHTABLE;
+}
+
+//insert CDH tuple into CDHTABLE
+CDHHASHTABLE* insert_CDH(CDHLIST cdh, CDHHASHTABLE* CDHHASHTABLE);
+CDHHASHTABLE* insert_CDH(CDHLIST cdh, CDHHASHTABLE* CDHHASHTABLE){
+    int index = hashing(cdh->Courses);
+    CDHLIST* position =CDHHASHTABLE[index];
+    while((*position) != NULL){
+        if(equal_CDH(cdh,(*position))){
+            printf("CDH tuple already exists\n");
+            return CDHHASHTABLE;
+        }else{
+            position=&(*position)->next;
+        }
+    }
+    *position = cdh;
+    return CDHHASHTABLE;
+}
+
+//insert CR tuple into CRTABLE
+CRHASHTABLE* insert_CR(CRLIST cr, CRHASHTABLE* CRHASHTABLE);
+CRHASHTABLE* insert_CR(CRLIST cr, CRHASHTABLE* CRHASHTABLE){
+    int index = hashing(cr->Courses);
+    CRLIST* position =CRHASHTABLE[index];
+    while((*position) != NULL){
+        if(equal_CR(cr,(*position))){
+            printf("CDH tuple already exists\n");
+            return CRHASHTABLE;
+        }else{
+            position=&(*position)->next;
+        }
+    }
+    *position = cr;
+    return CRHASHTABLE;
 }
 
 //print a tuple in CSG
