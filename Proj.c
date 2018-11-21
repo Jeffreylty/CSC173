@@ -402,9 +402,7 @@ void getStudCoursGrade(char* name, char* course){
 	}
 	CSGHASHTABLE* idgrade = lookup_CSG(course, id, "*", Courses-StudentID-Grade);
 	if(*idgrade != null) {
-		for(int i = 0; i < 2; i++){
-			printf(*idgrade->Grade[i]);
-		}
+		printf(*idgrade->Grade);
 	}else{
 		printf("Student doesn't take that course");
 	}
@@ -424,10 +422,7 @@ void getStudPlace(char* name, char* day, char* hour){
 			for(int j = 0; j < (int) (sizeof(idgrade) / sizeof(idgrade[0])) - 1, j++){
 				if(strcmp(*(timecourse + i)->Courses, *(idgrade + j)->Courses) == 0){
 					CRHASHTABLE* courseroom = lookup_CR(*(idgrade+j)->Courses, "*", Courses-Room);
-					for(int i = 0; i < 30; i++){
-						if(*courseroom->Room[i] != null){
-							printf(*courseroom->Room[i]);
-						}
+					printf(*courseroom->Room);
 					}
 				}
 			}
