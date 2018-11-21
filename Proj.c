@@ -326,13 +326,15 @@ int print_CRTable(CRHASHTABLE crt){
 void getStudCoursGrade(char* name, char* course){
 	SNAPHASHTABLE* idname = lookup_SNAP("*", name, "*", "*", StudentID-Name-Address-Phone);
 	if(*idname != null) {
-		char* id = *idname->StudentID;
+		int id = *idname->StudentID;
 	}else{
 		printf("Student doesn't exist");
 	}
 	CSGHASHTABLE* idgrade = lookup_CSG(course, id, "*", Courses-StudentID-Grade);
 	if(*idgrade != null) {
-		printf(*idgrade->Grade);
+		for(int i = 0; i < 2; i++){
+			printf(*idgrade->Grade[i]);
+		}
 	}else{
 		printf("Student doesn't take that course");
 	}
@@ -341,7 +343,7 @@ void getStudCoursGrade(char* name, char* course){
 void getStudPlace(char* name, char* day, char* hour){
 	SNAPHASHTABLE* idname = lookup_SNAP("*", name, "*", "*", StudentID-Name-Address-Phone);
 	if(*idname != null) {
-		char* id = *idname->StudentID;
+		int id = *idname->StudentID;
 	}else{
 		printf("Student doesn't exist");
 	}
@@ -352,7 +354,11 @@ void getStudPlace(char* name, char* day, char* hour){
 			for(int j = 0; j < (int) (sizeof(idgrade) / sizeof(idgrade[0])) - 1, j++){
 				if(strcmp(*(timecourse + i)->Courses, *(idgrade + j)->Courses) == 0){
 					CRHASHTABLE* courseroom = lookup_CR(*(idgrade+j)->Courses, "*", Courses-Room);
-					printf(*courseroom->Room);
+					for(int i = 0; i < 30; i++){
+						if(*courseroom->Room[i] != null){
+							printf(*courseroom->Room[i]);
+						}
+					}
 				}
 			}
 		}
@@ -401,5 +407,42 @@ int main(void) {
 	printf("Makes CS120 a prerequisite of CS205: %s\n", print_CP(insert((“CS205”, "CS120"), Course-Prerequisite)));
 	printf("Has no effect on the relation of CP, because the inserted tuple is already there: %s\n", print_CP(insert((“CS205”, "CS101"), Course-Prerequisite)));
 
+	//test part 2
+	char input1[256];
+	char input2[256];
+	char input3[256];
+	do {
+    		printf("What grade did StudentName get in CourseName? Enter: StudentName (\"quit\" to quit): ");
+    		fgets(input1, 255, stdin);
+    		removeNewLine(input1);
+    		if(strcmp(input1,"quit")!=0){
+			printf("Enter: CourseName: ");
+			fgets(input2, 255, stdin);
+			removeNewLine(input2);
+			printf("%s got grade , input1");
+			getStudCoursGrade(input1, input2);
+			printf(" in %s\n, input2");
+        		}
+    		}
+	} while(strcmp(input1,"quit")!=0);
+
+	do {
+    		printf("Where is StudentName at Time on Day? Enter: StudentName (\"quit\" to quit): ");
+    		fgets(input1, 255, stdin);
+    		removeNewLine(input1);
+    		if(strcmp(input1,"quit")!=0){
+			printf("Enter: Time: ");
+			fgets(input2, 255, stdin);
+			removeNewLine(input2);
+			printf("Enter: Day: ");
+			fgets(input3, 255, stdin);
+			removeNewLine(input3);
+			printf("%s is at , input1");
+			getStudPlace(input1, input2, input3);
+			printf(" at %s on %s\n, input2, input3");
+        		}
+    		}
+	} while(strcmp(input1,"quit")!=0);
+	
 	return 0;
 }
