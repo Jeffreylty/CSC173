@@ -8,7 +8,7 @@ struct CSG {
     char Courses[5];
     int StudentId;
     char Grade[2];
-    CSGLIST *next;
+    CSGLIST next;
 };
 typedef CSGLIST CSGHASHTABLE[1009];
 
@@ -46,7 +46,7 @@ struct SNAP {
     char Name[30];
     char Address[50];
     char Phone[8];
-    SNAPLIST *next;
+    SNAPLIST next;
 };
 typedef SNAPLIST SANPHASHTABLE[1009];
 
@@ -86,7 +86,7 @@ typedef struct CP *CPLIST;
 struct CP {
     char Courses[5];
     char Prerequisite[5];
-    CPLIST *next;
+    CPLIST next;
 };
 typedef CPLIST CPHASHTABLE[1009];
 
@@ -121,7 +121,7 @@ struct CDH {
     char Courses[5];
     char Day[2];
     char Hour[3];
-    CDHLIST *next;
+    CDHLIST next;
 };
 typedef CDHLIST CDHHASHTABLE[1009];
 
@@ -158,7 +158,7 @@ typedef struct CR *CRLIST;
 struct CR {
     char Courses[5];
     char Room[30];
-    CRLIST *next;
+    CRLIST next;
 };
 typedef CRLIST CRHASHTABLE[1009];
 
@@ -210,7 +210,7 @@ CSGHASHTABLE* insert_CSG(CSGLIST csg, CSGHASHTABLE* CSGHASHTABLE){
             printf("CSG tuple already exists\n");
             return CSGHASHTABLE;
         }else{
-            position=(*position)->next;
+            position=&(*position)->next;
         }
     }
     *position = csg;
