@@ -323,27 +323,27 @@ int print_CRTable(CRHASHTABLE crt){
 }
 
 //part 2
-char* getStudCoursGrade(char* name, char* course){
+void getStudCoursGrade(char* name, char* course){
 	SNAPHASHTABLE* idname = lookup_SNAP("*", name, "*", "*", StudentID-Name-Address-Phone);
 	if(*idname != null) {
 		char* id = *idname->StudentID;
 	}else{
-		return "Student doesn't exist";
+		printf("Student doesn't exist");
 	}
 	CSGHASHTABLE* idgrade = lookup_CSG(course, id, "*", Courses-StudentID-Grade);
 	if(*idgrade != null) {
-		return *idgrade->Grade;
+		printf(*idgrade->Grade);
 	}else{
-		return "Student doesn't take that course";
+		printf("Student doesn't take that course");
 	}
 }
 	
-char* getStudPlace(char* name, char* day, char* hour){
+void getStudPlace(char* name, char* day, char* hour){
 	SNAPHASHTABLE* idname = lookup_SNAP("*", name, "*", "*", StudentID-Name-Address-Phone);
 	if(*idname != null) {
 		char* id = *idname->StudentID;
 	}else{
-		return "Student doesn't exist";
+		printf("Student doesn't exist");
 	}
 	CSGHASHTABLE* idgrade = lookup_CSG("*", id, "*", Courses-StudentID-Grade);
 	CDHHASHTABLE* timecourse = lookup_CDH("*", day, hour, Courses-Day-Hour);
@@ -352,15 +352,14 @@ char* getStudPlace(char* name, char* day, char* hour){
 			for(int j = 0; j < (int) (sizeof(idgrade) / sizeof(idgrade[0])) - 1, j++){
 				if(strcmp(*(timecourse + i)->Courses, *(idgrade + j)->Courses) == 0){
 					CRHASHTABLE* courseroom = lookup_CR(*(idgrade+j)->Courses, "*", Courses-Room);
-					return *courseroom->Room;
+					printf(*courseroom->Room);
 				}
 			}
 		}
 	}else{
-		return "Student doesn't take a course at that time";
+		printf("Student doesn't take a course at that time");
 	}
 }
-
 
 int main(void) {
 	//part 1.3
