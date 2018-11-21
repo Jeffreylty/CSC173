@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include <stdbool.h>
 
 typedef struct CSG *CSGLIST;
 struct CSG {
@@ -11,21 +12,31 @@ struct CSG {
 typedef CSGLIST CSGHASHTABLE[1009];
 
 
+//compare two CSG tuple if they are same or not
+bool equal_CSG(CSGLIST csg1, CSGLIST csg2);
+bool equal_CSG(CSGLIST csg1, CSGLIST csg2){
+    if(strcmp(csg1->Courses,csg2->Courses)==0 && csg1->StudentId==csg2->StudentId && strcmp(csg1->Grade,csg2->Grade)==0){
+        return true;
+    }
+    return false;
+}
+
+
 //New CSG tuple
 CSGLIST new_CSG(char* Courses, int StudentId, char* Grade);
 CSGLIST new_CSG(char* Courses, int StudentId, char* Grade){
     CSGLIST csg = (CSGLIST)malloc(sizeof(struct CSG));
-    if(sizeof(Courses)>5){
-        printf("Wrong Course name length");
+    if(strlen(Courses)>5){
+        printf("Wrong Course length");
         return NULL;
     }
-    if(sizeof(Grade)>2){
+    if(strlen(Grade)>2){
         printf("Wrong Grade length");
         return NULL;
     }
-    strcpy(csg->Courses,Courses);
+    strncpy(csg->Courses,Courses,5);
     csg->StudentId=StudentId;
-    strcpy(csg->Grade,Grade);
+    strncpy(csg->Grade,Grade,2);
     return csg;
 }
 
@@ -38,26 +49,36 @@ struct SNAP {
 };
 typedef SNAPLIST SANPHASHTABLE[1009];
 
+//compare two SNAP tuple if they are same or not
+bool equal_SNAP(SNAPLIST snap1, SNAPLIST snap2);
+bool equal_SNAP(SNAPLIST snap1, SNAPLIST snap2){
+    if(strcmp(snap1->Address,snap2->Address)==0 && snap1->StudentId==snap2->StudentId && strcmp(snap1->Name,snap2->Name)==0 && strcmp(snap1->Phone, snap2->Phone)==0){
+//        printf("SNAP tuple already exists\n");
+        return true;
+    }
+    return false;
+}
+
 //new SNAP tuple
 SNAPLIST new_SNAP(int StudentId, char* Name, char* Address, char* Phone);
 SNAPLIST new_SNAP(int StudentId, char* Name, char* Address, char* Phone){
     SNAPLIST snap = (SNAPLIST)malloc(sizeof(struct SNAP));
-    if(sizeof(Name)>30){
+    if(strlen(Name)>30){
         printf("Wrong Name length");
         return NULL;
     }
-    if(sizeof(Address)>50){
+    if(strlen(Address)>50){
         printf("Wrong Address length");
         return NULL;
     }
-    if(sizeof(Phone)>8){
+    if(strlen(Phone)>8){
         printf("Wrong Phone length");
         return NULL;
     }
-    strcpy(snap->Name,Name);
+    strncpy(snap->Name,Name,30);
     snap->StudentId=StudentId;
-    strcpy(snap->Address,Address);
-    strcpy(snap->Phone, Phone);
+    strncpy(snap->Address,Address,50);
+    strncpy(snap->Phone, Phone,8);
     return snap;
 }
 
@@ -68,20 +89,30 @@ struct CP {
 };
 typedef CPLIST CPHASHTABLE[1009];
 
+
+//compare two CP tuple if they are same or not
+bool equal_CP(CPLIST cp1, CPLIST cp2);
+bool equal_CP(CPLIST cp1, CPLIST cp2){
+    if(strcmp(cp1->Courses,cp2->Courses)==0 && strcmp(cp1->Prerequisite,cp2->Prerequisite)==0){
+        return true;
+    }
+    return false;
+}
+
 //New CP tuple
 CPLIST new_CP(char* Courses, char* Prerequisite);
 CPLIST new_CP(char* Courses, char* Prerequisite){
     CPLIST cp = (CPLIST)malloc(sizeof(struct CP));
-    if(sizeof(Courses)>5){
+    if(strlen(Courses)>5){
         printf("Wrong Course name length");
         return NULL;
     }
-    if(sizeof(Prerequisite)>5){
+    if(strlen(Prerequisite)>5){
         printf("Wrong Prerequisite length");
         return NULL;
     }
-    strcpy(cp->Courses,Courses);
-    strcpy(cp->Prerequisite,Prerequisite);
+    strncpy(cp->Courses,Courses,5);
+    strncpy(cp->Prerequisite,Prerequisite,5);
     return cp;
 }
 
@@ -93,25 +124,34 @@ struct CDH {
 };
 typedef CDHLIST CDHHASHTABLE[1009];
 
+//compare two CDH tuple if they are same or not
+bool equal_CDH(CDHLIST cdh1, CDHLIST cdh2);
+bool equal_CDH(CDHLIST cdh1, CDHLIST cdh2){
+    if(strcmp(cdh1->Courses,cdh2->Courses)==0 && strcmp(cdh1->Day,cdh2->Courses)==0 && strcmp(cdh1->Hour,cdh2->Hour)==0){
+        return true;
+    }
+    return false;
+}
+
 //new CDH tuple
 CDHLIST new_CDH( char* Courses, char* Day, char* Hour);
 CDHLIST new_CDH( char* Courses, char* Day, char* Hour){
     CDHLIST cdh = (CDHLIST)malloc(sizeof(struct CDH));
-    if(sizeof(Courses)>5){
+    if(strlen(Courses)>5){
         printf("Wrong Courses length");
         return NULL;
     }
-    if(sizeof(Day)>2){
+    if(strlen(Day)>2){
         printf("Wrong Day length");
         return NULL;
     }
-    if(sizeof(Hour)>3){
+    if(strlen(Hour)>3){
         printf("Wrong Hour length");
         return NULL;
     }
-    strcpy(cdh->Courses,Courses);
-    strcpy(cdh->Day,Day);
-    strcpy(cdh->Hour, Hour);
+    strncpy(cdh->Courses,Courses,5);
+    strncpy(cdh->Day,Day,2);
+    strncpy(cdh->Hour, Hour,3);
     return cdh;
 }
 
@@ -122,20 +162,30 @@ struct CR {
 };
 typedef CRLIST CRHASHTABLE[1009];
 
+
+//compare two CR tuple if they are same or not
+bool equal_CR(CRLIST cr1, CRLIST cr2);
+bool equal_CR(CRLIST cr1, CRLIST cr2){
+    if(strcmp(cr1->Courses,cr2->Courses)==0 && strcmp(cr1->Room,cr2->Room)==0){
+        return true;
+    }
+    return false;
+}
+
 //New CR tuple
 CRLIST new_CR(char* Courses, char* Room);
 CRLIST new_CR(char* Courses, char* Room){
     CRLIST cr = (CRLIST)malloc(sizeof(struct CR));
-    if(sizeof(Courses)>5){
+    if(strlen(Courses)>5){
         printf("Wrong Course name length");
         return NULL;
     }
-    if(sizeof(Room)>5){
+    if(strlen(Room)>5){
         printf("Wrong Room length");
         return NULL;
     }
-    strcpy(cr->Courses,Courses);
-    strcpy(cr->Room,Room);
+    strncpy(cr->Courses,Courses,5);
+    strncpy(cr->Room,Room,5);
     return cr;
 }
 
