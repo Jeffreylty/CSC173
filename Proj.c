@@ -40,6 +40,26 @@ CSGLIST new_CSG(char* Courses, int StudentId, char* Grade){
     return csg;
 }
 
+//print a tuple in CSG
+void print_CSG(CSGLIST csg);
+void print_CSG(CSGLIST csg){
+    if (csg != NULL){
+        printf("(%s, %d, %s) ", csg->Courses, csg->StudentId, csg->Grade);
+    }
+}
+
+//print the table of CSG
+int print_CSGTable(CSGHASHTABLE csgt);
+int print_CSGTable(CSGHASHTABLE csgt){
+    for(int i = 0; i < 1009; i++){
+        if (csgt[i] != NULL){
+            print_CSG(csgt[i]);
+        }
+    }
+    printf("\n");
+    return 1;
+}
+
 typedef struct SNAP *SNAPLIST;
 struct SNAP {
     int StudentId;
@@ -82,6 +102,26 @@ SNAPLIST new_SNAP(int StudentId, char* Name, char* Address, char* Phone){
     return snap;
 }
 
+//print a tuple in SNAP
+void print_SNAP(SNAPLIST snap);
+void print_SNAP(SNAPLIST snap){
+    if (snap != NULL){
+        printf("(%d, %s, %s, %s) ", snap->StudentId, snap->Name, snap->Address, snap->Phone);
+    }
+}
+
+//print the table of SNAP
+int print_SNAPTable(SNAPHASHTABLE snapt);
+int print_SNAPTable(SNAPHASHTABLE snapt){
+    for(int i = 0; i < 1009; i++){
+        if (snapt[i] != NULL){
+            print_SNAP(snapt[i]);
+        }
+    }
+    printf("\n");
+    return 1;
+}
+
 typedef struct CP *CPLIST;
 struct CP {
     char Courses[5];
@@ -114,6 +154,26 @@ CPLIST new_CP(char* Courses, char* Prerequisite){
     strncpy(cp->Prerequisite,Prerequisite,5);
     cp->next= NULL;
     return cp;
+}
+
+//print a tuple in CP
+void print_CP(CPLIST cp);
+void print_CP(CPLIST cp){
+    if (cp != NULL){
+        printf("(%s, %s) ", cp->Courses, cp->Prerequisite);
+    }
+}
+
+//print the table of CP
+int print_CPTable(CPHASHTABLE cpt);
+int print_CPTable(CPHASHTABLE cpt){
+    for(int i = 0; i < 1009; i++){
+        if (cpt[i] != NULL){
+            print_CP(cpt[i]);
+        }
+    }
+    printf("\n");
+    return 1;
 }
 
 typedef struct CDH *CDHLIST;
@@ -154,6 +214,26 @@ CDHLIST new_CDH( char* Courses, char* Day, char* Hour){
     return cdh;
 }
 
+//print a tuple in CDH
+void print_CDH(CDHLIST cdh);
+void print_CDH(CDHLIST cdh){
+    if (cdh != NULL){
+        printf("(%s, %s, %s) ", cdh->Courses, cdh->Day, cdh->Hour);
+    }
+}
+
+//print the table of CDH
+int print_CDHTable(CDHHASHTABLE cdht);
+int print_CDHTable(CDHHASHTABLE cdht){
+    for(int i = 0; i < 1009; i++){
+        if (cdht[i] != NULL){
+            print_CDH(cdht[i]);
+        }
+    }
+    printf("\n");
+    return 1;
+}
+
 typedef struct CR *CRLIST;
 struct CR {
     char Courses[5];
@@ -188,6 +268,27 @@ CRLIST new_CR(char* Courses, char* Room){
     return cr;
 }
 
+
+//print a tuple in CR
+void print_CR(CRLIST cr);
+void print_CR(CRLIST cr){
+    if (cr != NULL){
+        printf("(%s, %s) ", cr->Courses, cr->Room);
+    }
+}
+
+//print the table of CR
+int print_CRTable(CRHASHTABLE crt);
+int print_CRTable(CRHASHTABLE crt){
+    for(int i = 0; i < 1009; i++){
+        if (crt[i] != NULL){
+            print_CR(crt[i]);
+        }
+    }
+    printf("\n");
+    return 1;
+}
+
 int hashing(char* key);
 int hashing(char* key) {
     int sum = 0;
@@ -207,7 +308,9 @@ CSGHASHTABLE* insert_CSG(CSGLIST csg, CSGHASHTABLE* CSGHASHTABLE){
 //    CSGLIST* first=CSGHASHTABLE[index];
     while((*position) != NULL){
         if(equal_CSG(csg, (*position))){
-            printf("CSG tuple already exists\n");
+            printf("CSG tuple :");
+            print_CSG(csg);
+            printf(" already exists\n");
             return CSGHASHTABLE;
         }else{
             position=&(*position)->next;
@@ -226,7 +329,9 @@ SNAPHASHTABLE* insert_SNAP(SNAPLIST snap, SNAPHASHTABLE* SNAPHASHTABLE){
     SNAPLIST* position =SNAPHASHTABLE[index];
     while((*position) != NULL){
         if(equal_SNAP(snap, (*position))){
-            printf("SNAP tuple already exists\n");
+            printf("SNAP tuple :");
+            print_SNAP(snap);
+            printf(" already exists\n");
             return SNAPHASHTABLE;
         }else{
             position=&(*position)->next;
@@ -243,7 +348,9 @@ CPHASHTABLE* insert_CP(CPLIST cp, CPHASHTABLE* CPHASHTABLE){
     CPLIST* position =CPHASHTABLE[index];
     while((*position) != NULL){
         if(equal_CP(cp, (*position))){
-            printf("CP tuple already exists\n");
+            printf("CP tuple :");
+            print_CP(cp);
+            printf(" already exists\n");
             return CPHASHTABLE;
         }else{
             position=&(*position)->next;
@@ -260,7 +367,9 @@ CDHHASHTABLE* insert_CDH(CDHLIST cdh, CDHHASHTABLE* CDHHASHTABLE){
     CDHLIST* position =CDHHASHTABLE[index];
     while((*position) != NULL){
         if(equal_CDH(cdh,(*position))){
-            printf("CDH tuple already exists\n");
+            printf("CDH tuple :");
+            print_CDH(cdh);
+            printf(" already exists\n");
             return CDHHASHTABLE;
         }else{
             position=&(*position)->next;
@@ -277,7 +386,9 @@ CRHASHTABLE* insert_CR(CRLIST cr, CRHASHTABLE* CRHASHTABLE){
     CRLIST* position =CRHASHTABLE[index];
     while((*position) != NULL){
         if(equal_CR(cr,(*position))){
-            printf("CDH tuple already exists\n");
+            printf("CR tuple :");
+            print_CR(cr);
+            printf(" already exists\n");
             return CRHASHTABLE;
         }else{
             position=&(*position)->next;
@@ -285,106 +396,6 @@ CRHASHTABLE* insert_CR(CRLIST cr, CRHASHTABLE* CRHASHTABLE){
     }
     *position = cr;
     return CRHASHTABLE;
-}
-
-//print a tuple in CSG
-void print_CSG(CSGLIST csg);
-void print_CSG(CSGLIST csg){
-	if (csg != NULL){
-		printf("(%s, %d, %s) ", csg->Courses, csg->StudentId, csg->Grade);
-	}
-}
-
-//print the table of CSG
-int print_CSGTable(CSGHASHTABLE csgt);
-int print_CSGTable(CSGHASHTABLE csgt){
-	for(int i = 0; i < 1009; i++){
-		if (csgt[i] != NULL){
-			print_CSG(csgt[i]);
-		}
-	}
-	printf("\n");
-	return 1;
-}
-
-//print a tuple in SNAP
-void print_SNAP(SNAPLIST snap);
-void print_SNAP(SNAPLIST snap){
-	if (snap != NULL){
-		printf("(%d, %s, %s, %s) ", snap->StudentId, snap->Name, snap->Address, snap->Phone);
-	}
-}
-
-//print the table of SNAP
-int print_SNAPTable(SNAPHASHTABLE snapt);
-int print_SNAPTable(SNAPHASHTABLE snapt){
-	for(int i = 0; i < 1009; i++){
-		if (snapt[i] != NULL){
-			print_SNAP(snapt[i]);
-		}
-	}
-	printf("\n");
-	return 1;
-}
-
-//print a tuple in CP
-void print_CP(CPLIST cp);
-void print_CP(CPLIST cp){
-	if (cp != NULL){
-		printf("(%s, %s) ", cp->Courses, cp->Prerequisite);
-	}
-}
-
-//print the table of CP
-int print_CPTable(CPHASHTABLE cpt);
-int print_CPTable(CPHASHTABLE cpt){
-	for(int i = 0; i < 1009; i++){
-		if (cpt[i] != NULL){
-			print_CP(cpt[i]);
-		}
-	}
-	printf("\n");
-	return 1;
-}
-
-//print a tuple in CDH
-void print_CDH(CDHLIST cdh);
-void print_CDH(CDHLIST cdh){
-	if (cdh != NULL){
-		printf("(%s, %s, %s) ", cdh->Courses, cdh->Day, cdh->Hour);
-	}
-}
-
-//print the table of CDH
-int print_CDHTable(CDHHASHTABLE cdht);
-int print_CDHTable(CDHHASHTABLE cdht){
-	for(int i = 0; i < 1009; i++){
-		if (cdht[i] != NULL){
-			print_CDH(cdht[i]);
-		}
-	}
-	printf("\n");
-	return 1;
-}
-
-//print a tuple in CR
-void print_CR(CRLIST cr);
-void print_CR(CRLIST cr){
-	if (cr != NULL){
-		printf("(%s, %s) ", cr->Courses, cr->Room);
-	}
-}
-
-//print the table of CR
-int print_CRTable(CRHASHTABLE crt);
-int print_CRTable(CRHASHTABLE crt){
-	for(int i = 0; i < 1009; i++){
-		if (crt[i] != NULL){
-			print_CR(crt[i]);
-		}
-	}
-	printf("\n");
-	return 1;
 }
 
 //part 2
