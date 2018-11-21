@@ -288,12 +288,11 @@ CRHASHTABLE* insert_CR(CRLIST cr, CRHASHTABLE* CRHASHTABLE){
 }
 
 //print a tuple in CSG
-int print_CSG(CSGLIST csg);
-int print_CSG(CSGLIST csg){
+void print_CSG(CSGLIST csg);
+void print_CSG(CSGLIST csg){
 	if (csg != NULL){
 		printf("(%s, %d, %s) ", csg->Courses, csg->StudentId, csg->Grade);
 	}
-	return 1;
 }
 
 //print the table of CSG
@@ -309,12 +308,11 @@ int print_CSGTable(CSGHASHTABLE csgt){
 }
 
 //print a tuple in SNAP
-int print_SNAP(SNAPLIST snap);
-int print_SNAP(SNAPLIST snap){
+void print_SNAP(SNAPLIST snap);
+void print_SNAP(SNAPLIST snap){
 	if (snap != NULL){
 		printf("(%d, %s, %s, %s) ", snap->StudentId, snap->Name, snap->Address, snap->Phone);
 	}
-	return 1;
 }
 
 //print the table of SNAP
@@ -330,12 +328,11 @@ int print_SNAPTable(SNAPHASHTABLE snapt){
 }
 
 //print a tuple in CP
-int print_CP(CPLIST cp);
-int print_CP(CPLIST cp){
+void print_CP(CPLIST cp);
+void print_CP(CPLIST cp){
 	if (cp != NULL){
 		printf("(%s, %s) ", cp->Courses, cp->Prerequisite);
 	}
-	return 1;
 }
 
 //print the table of CP
@@ -351,12 +348,11 @@ int print_CPTable(CPHASHTABLE cpt){
 }
 
 //print a tuple in CDH
-int print_CDH(CDHLIST cdh);
-int print_CDH(CDHLIST cdh){
-	if (csg != NULL){
+void print_CDH(CDHLIST cdh);
+void print_CDH(CDHLIST cdh){
+	if (cdh != NULL){
 		printf("(%s, %s, %s) ", cdh->Courses, cdh->Day, cdh->Hour);
 	}
-	return 1;
 }
 
 //print the table of CDH
@@ -372,12 +368,11 @@ int print_CDHTable(CDHHASHTABLE cdht){
 }
 
 //print a tuple in CR
-int print_CR(CRLIST cr);
-int print_CR(CRLIST cr){
-	if (csg != NULL){
+void print_CR(CRLIST cr);
+void print_CR(CRLIST cr){
+	if (cr != NULL){
 		printf("(%s, %s) ", cr->Courses, cr->Room);
 	}
-	return 1;
 }
 
 //print the table of CR
@@ -402,7 +397,9 @@ void getStudCoursGrade(char* name, char* course){
 	}
 	CSGHASHTABLE* idgrade = lookup_CSG(course, id, "*", Courses-StudentID-Grade);
 	if(*idgrade != null) {
-		printf(*idgrade->Grade);
+		for(int i = 0; i < 2; i++){
+			printf(*idgrade->Grade[i]);
+		}
 	}else{
 		printf("Student doesn't take that course");
 	}
@@ -422,7 +419,10 @@ void getStudPlace(char* name, char* day, char* hour){
 			for(int j = 0; j < (int) (sizeof(idgrade) / sizeof(idgrade[0])) - 1, j++){
 				if(strcmp(*(timecourse + i)->Courses, *(idgrade + j)->Courses) == 0){
 					CRHASHTABLE* courseroom = lookup_CR(*(idgrade+j)->Courses, "*", Courses-Room);
-					printf(*courseroom->Room);
+					for(int i = 0; i < 30; i++){
+						if(*courseroom->Room[i] != null){
+							printf(*courseroom->Room[i]);
+						}
 					}
 				}
 			}
