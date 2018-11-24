@@ -188,7 +188,7 @@ typedef CDHLIST CDHHASHTABLE[1009];
 //compare two CDH tuple if they are same or not
 bool equal_CDH(CDHLIST cdh1, CDHLIST cdh2);
 bool equal_CDH(CDHLIST cdh1, CDHLIST cdh2){
-    if(strcmp(cdh1->Courses,cdh2->Courses)==0 && strcmp(cdh1->Day,cdh2->Courses)==0 && strcmp(cdh1->Hour,cdh2->Hour)==0){
+    if(strcmp(cdh1->Courses,cdh2->Courses)==0 && strcmp(cdh1->Day,cdh2->Day)==0 && strcmp(cdh1->Hour,cdh2->Hour)==0){
         return true;
     }
     return false;
