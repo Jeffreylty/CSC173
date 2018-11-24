@@ -534,6 +534,18 @@ void join_CRDH(){
 	print_CRDHTable(crdht);
 }
 
+//Example 8.15
+void allthree(){
+	CRDHHASHTABLE crdht = join_CRDH();
+	for(int i = 0; i < 1009; i++){
+		if(crdht[i] != null){
+			if(strcmp(crdht[i]->Room, "Turing Aud.") == 0){
+				printf("(%s, %s) ", crdht[i]->Day, crdht[i]->Hour);
+			}
+		}
+	}
+}
+
 int main(void) {
 	//part 1.3
 	//populate the tables with the data given in the figures
