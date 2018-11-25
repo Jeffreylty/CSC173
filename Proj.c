@@ -49,15 +49,17 @@ void print_CSG(CSGLIST csg){
 }
 
 //print the table of CSG
-int print_CSGTable(CSGHASHTABLE csgt);
-int print_CSGTable(CSGHASHTABLE csgt){
-    for(int i = 0; i < 1009; i++){
-        if (csgt[i] != NULL){
-            print_CSG(csgt[i]);
+void print_CSGTable(CSGHASHTABLE* csgt);
+void print_CSGTable(CSGHASHTABLE* csgt){
+    for(int i = 0; i <= 1009; i++){
+        CSGLIST* position = csgt[i];
+        while((*position) != NULL){
+            print_CSG(*position);
+            printf("\n");
+            position = &(*position)->next;
+            }
         }
-    }
     printf("\n");
-    return 1;
 }
 
 typedef struct SNAP *SNAPLIST;
@@ -110,16 +112,18 @@ void print_SNAP(SNAPLIST snap){
     }
 }
 
-//print the table of SNAP
-int print_SNAPTable(SNAPHASHTABLE snapt);
-int print_SNAPTable(SNAPHASHTABLE snapt){
-    for(int i = 0; i < 1009; i++){
-        if (snapt[i] != NULL){
-            print_SNAP(snapt[i]);
+//print the table of CNAP
+void print_CNAPTable(CNAPHASHTABLE* cnapt);
+void print_CNAPTable(CNAPHASHTABLE* cnapt){
+    for(int i = 0; i <= 1009; i++){
+        CNAPLIST* position = cnapt[i];
+        while((*position) != NULL){
+            print_CNAP(*position);
+            printf("\n");
+            position = &(*position)->next;
+            }
         }
-    }
     printf("\n");
-    return 1;
 }
 
 typedef struct CP *CPLIST;
@@ -165,15 +169,17 @@ void print_CP(CPLIST cp){
 }
 
 //print the table of CP
-int print_CPTable(CPHASHTABLE cpt);
-int print_CPTable(CPHASHTABLE cpt){
-    for(int i = 0; i < 1009; i++){
-        if (cpt[i] != NULL){
-            print_CP(cpt[i]);
+void print_CPTable(CPHASHTABLE* cpt);
+void print_CPTable(CPHASHTABLE* cpt){
+    for(int i = 0; i <= 1009; i++){
+        CPLIST* position = cpt[i];
+        while((*position) != NULL){
+            print_CP(*position);
+            printf("\n");
+            position = &(*position)->next;
+            }
         }
-    }
     printf("\n");
-    return 1;
 }
 
 typedef struct CDH *CDHLIST;
@@ -222,16 +228,18 @@ void print_CDH(CDHLIST cdh){
     }
 }
 
-//print the table of CDH
-int print_CDHTable(CDHHASHTABLE cdht);
-int print_CDHTable(CDHHASHTABLE cdht){
-    for(int i = 0; i < 1009; i++){
-        if (cdht[i] != NULL){
-            print_CDH(cdht[i]);
+//print the table of CDHP
+void print_CDHTable(CDHHASHTABLE* cdhpt);
+void print_CDHTable(CDHHASHTABLE* cdhpt){
+    for(int i = 0; i <= 1009; i++){
+        CDHPLIST* position = cdhpt[i];
+        while((*position) != NULL){
+            print_CDHP(*position);
+            printf("\n");
+            position = &(*position)->next;
+            }
         }
-    }
     printf("\n");
-    return 1;
 }
 
 typedef struct CR *CRLIST;
@@ -278,16 +286,19 @@ void print_CR(CRLIST cr){
 }
 
 //print the table of CR
-int print_CRTable(CRHASHTABLE crt);
-int print_CRTable(CRHASHTABLE crt){
-    for(int i = 0; i < 1009; i++){
-        if (crt[i] != NULL){
-            print_CR(crt[i]);
+void print_CRTable(CRHASHTABLE* crt);
+void print_CRTable(CRHASHTABLE* crt){
+    for(int i = 0; i <= 1009; i++){
+        CRLIST* position = crt[i];
+        while((*position) != NULL){
+            print_CR(*position);
+            printf("\n");
+            position = &(*position)->next;
+            }
         }
-    }
     printf("\n");
-    return 1;
 }
+
 
 int hashing(char* key);
 int hashing(char* key) {
