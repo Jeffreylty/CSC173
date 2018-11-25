@@ -864,7 +864,8 @@ typedef CRDHLIST CRDHHASHTABLE[1009];
 //compare two CRDH tuple if they are same or not
 bool equal_CRDH(CRDHLIST crdh1, CRDHLIST crdh2);
 bool equal_CRDH(CRDHLIST crdh1, CRDHLIST crdh2){
-    if(strcmp(crdh1->Courses,crdh2->Courses)==0 && strcmp(crdh1->Day,crdh2->Day)==0 && strcmp(crdh1->Hour,crdh2->Hour)==0){
+    if(strcmp(crdh1->Courses,crdh2->Courses)==0 && strcmp(crdh1->Day,crdh2->Day)==0 && strcmp(crdh1->Hour,crdh2->Hour)==0
+       && strcmp(crdh1->Room,crdh2->Room)==0){
         return true;
     }
     return false;
