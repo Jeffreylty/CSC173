@@ -857,7 +857,7 @@ struct CRDH {
 	char Room[30];
     char Day[2];
     char Hour[3];
-    CDHLIST next;
+    CRDHLIST next;
 };
 typedef CRDHLIST CRDHHASHTABLE[1009];
 
@@ -912,6 +912,25 @@ void print_CRDH(CRDHLIST crdh){
     if (crdh != NULL){
         printf("(%s, %s, %s, %s) ", crdh->Courses, crdh->Room, crdh->Day, crdh->Hour);
     }
+}
+
+//insert CRDH tuple into CRDHTABLE
+CRDHHASHTABLE* insert_CRDH(CRDHLIST crdh, CRDHHASHTABLE* CRDHHASHTABLE);
+CRDHHASHTABLE* insert_CRDH(CRDHLIST crdh, CRDHHASHTABLE* CRDHHASHTABLE){
+    int index = hashing(crdh->Courses);
+    CRDHLIST* position =CRDHHASHTABLE[index];
+    while((*position) != NULL){
+        if(equal_CRDH(crdh, (*position))){
+            printf("CRDH tuple :");
+            print_CRDH(crdh);
+            printf(" already exists\n");
+            return CRDHHASHTABLE;
+        }else{
+            position=&(*position)->next;
+        }
+    }
+    *position = crdh;
+    return CRDHHASHTABLE;
 }
 
 //print the table of CRDH
