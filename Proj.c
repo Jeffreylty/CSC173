@@ -5,9 +5,9 @@
 
 typedef struct CSG *CSGLIST;
 struct CSG {
-    char Courses[5];
+    char Courses[6];
     int StudentId;
-    char Grade[2];
+    char Grade[3];
     CSGLIST next;
 };
 typedef CSGLIST CSGHASHTABLE[1009];
@@ -34,8 +34,10 @@ CSGLIST new_CSG(char* Courses, int StudentId, char* Grade){
         printf("Wrong Grade length");
     }
     strncpy(csg->Courses,Courses,5);
+    csg->Courses[5]='\0';
     csg->StudentId=StudentId;
     strncpy(csg->Grade,Grade,2);
+    csg->Grade[2]='\0';
     csg->next= NULL;
     return csg;
 }
@@ -51,23 +53,24 @@ void print_CSG(CSGLIST csg){
 //print the table of CSG
 void print_CSGTable(CSGHASHTABLE* csgt);
 void print_CSGTable(CSGHASHTABLE* csgt){
+    printf("CSG Table: \n");
     for(int i = 0; i <= 1009; i++){
         CSGLIST* position = csgt[i];
         while((*position) != NULL){
             print_CSG(*position);
             printf("\n");
             position = &(*position)->next;
-            }
         }
+    }
     printf("\n");
 }
 
 typedef struct SNAP *SNAPLIST;
 struct SNAP {
     int StudentId;
-    char Name[30];
-    char Address[50];
-    char Phone[8];
+    char Name[31];
+    char Address[51];
+    char Phone[9];
     SNAPLIST next;
 };
 typedef SNAPLIST SNAPHASHTABLE[1009];
@@ -97,9 +100,12 @@ SNAPLIST new_SNAP(int StudentId, char* Name, char* Address, char* Phone){
         return NULL;
     }
     strncpy(snap->Name,Name,30);
+    snap->Name[30]='\0';
     snap->StudentId=StudentId;
     strncpy(snap->Address,Address,50);
+    snap->Address[50]='\0';
     strncpy(snap->Phone, Phone,8);
+    snap->Phone[8]='\0';
     snap->next= NULL;
     return snap;
 }
@@ -112,24 +118,25 @@ void print_SNAP(SNAPLIST snap){
     }
 }
 
-//print the table of CNAP
-void print_CNAPTable(CNAPHASHTABLE* cnapt);
-void print_CNAPTable(CNAPHASHTABLE* cnapt){
+//print the table of SNAP
+void print_SNAPTable(SNAPHASHTABLE* cnapt);
+void print_SNAPTable(SNAPHASHTABLE* cnapt){
+    printf("SNAP Table: \n");
     for(int i = 0; i <= 1009; i++){
-        CNAPLIST* position = cnapt[i];
+        SNAPLIST* position = cnapt[i];
         while((*position) != NULL){
-            print_CNAP(*position);
+            print_SNAP(*position);
             printf("\n");
             position = &(*position)->next;
-            }
         }
+    }
     printf("\n");
 }
 
 typedef struct CP *CPLIST;
 struct CP {
-    char Courses[5];
-    char Prerequisite[5];
+    char Courses[6];
+    char Prerequisite[6];
     CPLIST next;
 };
 typedef CPLIST CPHASHTABLE[1009];
@@ -155,7 +162,9 @@ CPLIST new_CP(char* Courses, char* Prerequisite){
         printf("Wrong Prerequisite length");
     }
     strncpy(cp->Courses,Courses,5);
+    cp->Courses[5]='\0';
     strncpy(cp->Prerequisite,Prerequisite,5);
+    cp->Prerequisite[5]='\0';
     cp->next= NULL;
     return cp;
 }
@@ -171,22 +180,23 @@ void print_CP(CPLIST cp){
 //print the table of CP
 void print_CPTable(CPHASHTABLE* cpt);
 void print_CPTable(CPHASHTABLE* cpt){
+    printf("CP Table: \n");
     for(int i = 0; i <= 1009; i++){
         CPLIST* position = cpt[i];
         while((*position) != NULL){
             print_CP(*position);
             printf("\n");
             position = &(*position)->next;
-            }
         }
+    }
     printf("\n");
 }
 
 typedef struct CDH *CDHLIST;
 struct CDH {
-    char Courses[5];
-    char Day[2];
-    char Hour[3];
+    char Courses[6];
+    char Day[3];
+    char Hour[5];
     CDHLIST next;
 };
 typedef CDHLIST CDHHASHTABLE[1009];
@@ -210,12 +220,15 @@ CDHLIST new_CDH( char* Courses, char* Day, char* Hour){
     if(strlen(Day)>2){
         printf("Wrong Day length");
     }
-    if(strlen(Hour)>3){
+    if(strlen(Hour)>4){
         printf("Wrong Hour length");
     }
     strncpy(cdh->Courses,Courses,5);
+    cdh->Courses[5]='\0';
     strncpy(cdh->Day,Day,2);
-    strncpy(cdh->Hour, Hour,3);
+    cdh->Day[2]='\0';
+    strncpy(cdh->Hour, Hour,4);
+    cdh->Hour[4]='\0';
     cdh->next= NULL;
     return cdh;
 }
@@ -228,24 +241,25 @@ void print_CDH(CDHLIST cdh){
     }
 }
 
-//print the table of CDHP
+//print the table of CDH
 void print_CDHTable(CDHHASHTABLE* cdhpt);
 void print_CDHTable(CDHHASHTABLE* cdhpt){
+    printf("CDH Table: \n");
     for(int i = 0; i <= 1009; i++){
-        CDHPLIST* position = cdhpt[i];
+        CDHLIST* position = cdhpt[i];
         while((*position) != NULL){
-            print_CDHP(*position);
+            print_CDH(*position);
             printf("\n");
             position = &(*position)->next;
-            }
         }
+    }
     printf("\n");
 }
 
 typedef struct CR *CRLIST;
 struct CR {
-    char Courses[5];
-    char Room[30];
+    char Courses[6];
+    char Room[31];
     CRLIST next;
 };
 typedef CRLIST CRHASHTABLE[1009];
@@ -271,7 +285,9 @@ CRLIST new_CR(char* Courses, char* Room){
         printf("Wrong Room length");
     }
     strncpy(cr->Courses,Courses,5);
-    strncpy(cr->Room,Room,5);
+    cr->Courses[5]='\0';
+    strncpy(cr->Room,Room,30);
+    cr->Room[30]='\0';
     cr->next= NULL;
     return cr;
 }
@@ -288,17 +304,17 @@ void print_CR(CRLIST cr){
 //print the table of CR
 void print_CRTable(CRHASHTABLE* crt);
 void print_CRTable(CRHASHTABLE* crt){
+    printf("CR Table: \n");
     for(int i = 0; i <= 1009; i++){
         CRLIST* position = crt[i];
         while((*position) != NULL){
             print_CR(*position);
             printf("\n");
             position = &(*position)->next;
-            }
         }
+    }
     printf("\n");
 }
-
 
 int hashing(char* key);
 int hashing(char* key) {
@@ -483,7 +499,7 @@ CSGHASHTABLE* lookup_CSG(char* Courses, int StudentId, char* Grade,CSGHASHTABLE*
                 CSGLIST temp= new_CSG((*position)->Courses, (*position)->StudentId, (*position)->Grade);
                 temp->next=NULL;
                 insert_CSG(temp, result);
-                free(temp);
+//                free(temp);
                 position=&(*position)->next;
             }else{
                 position=&(*position)->next;
@@ -501,7 +517,7 @@ CSGHASHTABLE* lookup_CSG(char* Courses, int StudentId, char* Grade,CSGHASHTABLE*
                     CSGLIST temp= new_CSG((*position)->Courses, (*position)->StudentId, (*position)->Grade);
                     temp->next=NULL;
                     insert_CSG(temp, result);
-                    free(temp);
+//                    free(temp);
                     position=&(*position)->next;
                 }else{
                     position=&(*position)->next;
@@ -536,7 +552,7 @@ SNAPHASHTABLE* lookup_SNAP(int StudentId, char* Name, char* Address, char* Phone
                 SNAPLIST temp= new_SNAP((*position)->StudentId, (*position)->Name, (*position)->Address,(*position)->Phone);
                 temp->next=NULL;
                 insert_SNAP(temp, result);
-                free(temp);
+//                free(temp);
                 position=&(*position)->next;
             }else{
                 position=&(*position)->next;
@@ -555,7 +571,7 @@ SNAPHASHTABLE* lookup_SNAP(int StudentId, char* Name, char* Address, char* Phone
                     SNAPLIST temp= new_SNAP((*position)->StudentId, (*position)->Name, (*position)->Address,(*position)->Phone);
                     temp->next=NULL;
                     insert_SNAP(temp, result);
-                    free(temp);
+//                    free(temp);
                     position=&(*position)->next;
                 }else{
                     position=&(*position)->next;
@@ -583,7 +599,7 @@ CPHASHTABLE* lookup_CP(char* Courses, char* Prerequisite,CPHASHTABLE* TABLE){
                 CPLIST temp= new_CP((*position)->Courses, (*position)->Prerequisite);
                 temp->next=NULL;
                 insert_CP(temp, result);
-                free(temp);
+//                free(temp);
                 position=&(*position)->next;
             }else{
                 position=&(*position)->next;
@@ -601,7 +617,7 @@ CPHASHTABLE* lookup_CP(char* Courses, char* Prerequisite,CPHASHTABLE* TABLE){
                     CPLIST temp= new_CP((*position)->Courses, (*position)->Prerequisite);
                     temp->next=NULL;
                     insert_CP(temp, result);
-                    free(temp);
+//                    free(temp);
                     position=&(*position)->next;
                 }else{
                     position=&(*position)->next;
@@ -631,7 +647,7 @@ CDHHASHTABLE* lookup_CDH(char* Courses, char* Day, char* Hour,CDHHASHTABLE* TABL
                 CDHLIST temp= new_CDH((*position)->Courses, (*position)->Day, (*position)->Hour);
                 temp->next=NULL;
                 insert_CDH(temp, result);
-                free(temp);
+//                free(temp);
                 position=&(*position)->next;
             }else{
                 position=&(*position)->next;
@@ -649,7 +665,7 @@ CDHHASHTABLE* lookup_CDH(char* Courses, char* Day, char* Hour,CDHHASHTABLE* TABL
                     CDHLIST temp= new_CDH((*position)->Courses, (*position)->Day, (*position)->Hour);
                     temp->next=NULL;
                     insert_CDH(temp, result);
-                    free(temp);
+//                    free(temp);
                     position=&(*position)->next;
                 }else{
                     position=&(*position)->next;
@@ -677,7 +693,7 @@ CRHASHTABLE* lookup_CR(char* Courses, char* Room, char* Hour,CRHASHTABLE* TABLE)
                 CRLIST temp= new_CR((*position)->Courses, (*position)->Room);
                 temp->next=NULL;
                 insert_CR(temp, result);
-                free(temp);
+//                free(temp);
                 position=&(*position)->next;
             }else{
                 position=&(*position)->next;
@@ -695,7 +711,7 @@ CRHASHTABLE* lookup_CR(char* Courses, char* Room, char* Hour,CRHASHTABLE* TABLE)
                     CRLIST temp= new_CR((*position)->Courses, (*position)->Room);
                     temp->next=NULL;
                     insert_CR(temp, result);
-                    free(temp);
+//                    free(temp);
                     position=&(*position)->next;
                 }else{
                     position=&(*position)->next;
@@ -707,100 +723,200 @@ CRHASHTABLE* lookup_CR(char* Courses, char* Room, char* Hour,CRHASHTABLE* TABLE)
 }
 
 //delete a givin tuole from CSGTABLE
-CSGHASHTABLE* delete_CSG(CSGLIST csg, CSGHASHTABLE* CSGHASHTABLE);
-CSGHASHTABLE* delete_CSG(CSGLIST csg, CSGHASHTABLE* CSGHASHTABLE){
-    int index = hashing(csg->Courses);
-    CSGLIST* position =CSGHASHTABLE[index];
-    while((*position) != NULL){
-        if(equal_CSG(csg, (*position))){
-            *position = (*position)->next;
-            return CSGHASHTABLE;
-        }else{
-            position=&(*position)->next;
+CSGHASHTABLE* delete_CSG(char* Courses, int StudentId, char* Grade,CSGHASHTABLE* TABLE);
+CSGHASHTABLE* delete_CSG(char* Courses, int StudentId, char* Grade,CSGHASHTABLE* TABLE){
+    bool checkC =true;
+    if(*Courses == '*'){checkC=false;}
+    bool checkS=true;
+    if(StudentId==-1){checkS=false;}
+    bool checkG=true;
+    if(*Grade == '*'){checkG=false;}
+    if(checkC){
+        int index = hashing(Courses);
+        CSGLIST* position =TABLE[index];
+        while((*position) != NULL){
+            //check if the current tuple is what we are looking for
+            if((strcmp(Courses, (*position)->Courses)==0)&&(checkS==false || StudentId==(*position)->StudentId)&&(checkG==false || strcmp(Grade, (*position)->Grade)==0)){
+                *position = (*position)->next;
+            }else{
+                position=&(*position)->next;
+            }
         }
+        
+        return TABLE;
+    }else{
+        for(int i=0; i<= 1009; i++){
+            CSGLIST* position =TABLE[i];
+            while((*position) != NULL){
+                //check if the current tuple is what we are looking for
+                //print_CSG((*position));
+                if((checkS==false || StudentId==(*position)->StudentId)&&(checkG==false || strcmp(Grade, (*position)->Grade)==0)){
+                   *position = (*position)->next;
+                }else{
+                    position=&(*position)->next;
+                }
+            }
+        }
+        return TABLE;
     }
-    printf("CSG tuple you want to delete:");
-    print_CSG(csg);
-    printf(" is not in the table\n");
-    return CSGHASHTABLE;
 }
 
 //delete a givin tuple from SNAPTABLE
-SNAPHASHTABLE* delete_SNAP(SNAPLIST snap, SNAPHASHTABLE* SNAPHASHTABLE);
-SNAPHASHTABLE* delete_SNAP(SNAPLIST snap, SNAPHASHTABLE* SNAPHASHTABLE){
-    char* str= NULL;
-    sprintf(str,"%d", snap->StudentId);
-    int index = hashing(str);
-    SNAPLIST* position =SNAPHASHTABLE[index];
-    while((*position) != NULL){
-        if(equal_SNAP(snap, (*position))){
-            *position = (*position)->next;
-            return SNAPHASHTABLE;
-        }else{
-            position=&(*position)->next;
+SNAPHASHTABLE* delete_SNAP(int StudentId, char* Name, char* Address, char* Phone,SNAPHASHTABLE* TABLE);
+SNAPHASHTABLE* delete_SNAP(int StudentId, char* Name, char* Address, char* Phone,SNAPHASHTABLE* TABLE){
+    bool checkN =true;
+    if(*Name == '*'){checkN=false;}
+    bool checkS=true;
+    if(StudentId==-1){checkS=false;}
+    bool checkA=true;
+    if(*Address == '*'){checkA=false;}
+    bool checkP=true;
+    if(*Phone=='*'){checkP=false;}
+    if(checkS){
+        char* str= NULL;
+        sprintf(str,"%d", StudentId);
+        int index = hashing(str);
+        SNAPLIST* position =TABLE[index];
+        while((*position) != NULL){
+            //check if the current tuple is what we are looking for
+            if((strcmp(Name, (*position)->Name)==0 || checkN==false )&&(StudentId==(*position)->StudentId)
+               &&(checkA==false || strcmp(Address, (*position)->Address)==0)&&(checkP==false || strcmp(Phone, (*position)->Phone)==0)){
+                *position = (*position)->next;
+            }else{
+                position=&(*position)->next;
+            }
         }
+        
+        return TABLE;
+    }else{
+        for(int i=0; i<= 1009; i++){
+            SNAPLIST* position =TABLE[i];
+            while((*position) != NULL){
+                //check if the current tuple is what we are looking for
+                //print_SNAP((*position));
+                if((strcmp(Name, (*position)->Name)==0 || checkN==false )
+                   &&(checkA==false || strcmp(Address, (*position)->Address)==0)&&(checkP==false || strcmp(Phone, (*position)->Phone)==0)){
+                *position = (*position)->next;
+                }else{
+                    position=&(*position)->next;
+                }
+            }
+        }
+        return TABLE;
     }
-    printf("SNAP tuple you want to delete:");
-    print_SNAP(snap);
-    printf(" is not in the table\n");
-    return SNAPHASHTABLE;
 }
 
 //delete a givin tuple from CPTABLE
-CPHASHTABLE* delete_CP(CPLIST cp, CPHASHTABLE* CPHASHTABLE);
-CPHASHTABLE* delete_CP(CPLIST cp, CPHASHTABLE* CPHASHTABLE){
-    int index = hashing(cp->Courses);
-    CPLIST* position =CPHASHTABLE[index];
-    while((*position) != NULL){
-        if(equal_CP(cp, (*position))){
-            *position = (*position)->next;
-            return CPHASHTABLE;
+CPHASHTABLE* delete_CP(char* Courses, char* Prerequisite,CPHASHTABLE* TABLE);
+CPHASHTABLE* delete_CP(char* Courses, char* Prerequisite,CPHASHTABLE* TABLE){
+        bool checkC =true;
+        if(*Courses == '*'){checkC=false;}
+        bool checkP=true;
+        if(*Prerequisite== '*'){checkP=false;}
+        if(checkC){
+            int index = hashing(Courses);
+            CPLIST* position =TABLE[index];
+            while((*position) != NULL){
+                //check if the current tuple is what we are looking for
+                if((strcmp(Courses, (*position)->Courses)==0)&&(checkP==false || strcmp(Prerequisite, (*position)->Prerequisite)==0)){
+                    *position = (*position)->next;
+                }else{
+                    position=&(*position)->next;
+                }
+            }
+            
+            return TABLE;
         }else{
-            position=&(*position)->next;
+            for(int i=0; i<= 1009; i++){
+                CPLIST* position =TABLE[i];
+                while((*position) != NULL){
+                    //check if the current tuple is what we are looking for
+                    //print_CSG((*position));
+                    if((checkP==false || strcmp(Prerequisite, (*position)->Prerequisite)==0)){
+                        *position = (*position)->next;
+                    }else{
+                        position=&(*position)->next;
+                    }
+                }
+            }
+            return TABLE;
         }
-    }
-    printf("CP tuple you want to delete:");
-    print_CP(cp);
-    printf(" is not in the table\n");
-    return CPHASHTABLE;
 }
 
 //delete a givin tuple from CDHTABLE
-CDHHASHTABLE* delete_CDH(CDHLIST cdh, CDHHASHTABLE* CDHHASHTABLE);
-CDHHASHTABLE* delete_CDH(CDHLIST cdh, CDHHASHTABLE* CDHHASHTABLE){
-    int index = hashing(cdh->Courses);
-    CDHLIST* position =CDHHASHTABLE[index];
-    while((*position) != NULL){
-        if(equal_CDH(cdh, (*position))){
-            *position = (*position)->next;
-            return CDHHASHTABLE;
-        }else{
-            position=&(*position)->next;
+CDHHASHTABLE* delete_CDH(char* Courses, char* Day, char* Hour,CDHHASHTABLE* TABLE);
+CDHHASHTABLE* delete_CDH(char* Courses, char* Day, char* Hour,CDHHASHTABLE* TABLE){
+    bool checkC =true;
+    if(*Courses == '*'){checkC=false;}
+    bool checkD=true;
+    if(*Day== '*'){checkD=false;}
+    bool checkH=true;
+    if(*Hour == '*'){checkH=false;}
+    if(checkC){
+        int index = hashing(Courses);
+        CDHLIST* position =TABLE[index];
+        while((*position) != NULL){
+            //check if the current tuple is what we are looking for
+            if((strcmp(Courses, (*position)->Courses)==0)&&(checkD==false || strcmp(Day, (*position)->Day)==0)&&(checkH==false || strcmp(Hour, (*position)->Hour)==0)){
+                *position = (*position)->next;
+            }else{
+                position=&(*position)->next;
+            }
         }
+        
+        return TABLE;
+    }else{
+        for(int i=0; i<= 1009; i++){
+            CDHLIST* position =TABLE[i];
+            while((*position) != NULL){
+                //check if the current tuple is what we are looking for
+                //print_CSG((*position));
+                if((checkD==false || strcmp(Day, (*position)->Day)==0)&&(checkH==false || strcmp(Hour, (*position)->Hour)==0)){
+                    *position = (*position)->next;
+                }else{
+                    position=&(*position)->next;
+                }
+            }
+        }
+        return TABLE;
     }
-    printf("CDH tuple you want to delete:");
-    print_CDH(cdh);
-    printf(" is not in the table\n");
-    return CDHHASHTABLE;
 }
 
 //delete a givin tuple from CRTABLE
-CRHASHTABLE* delete_CR(CRLIST cr, CRHASHTABLE* CRHASHTABLE);
-CRHASHTABLE* delete_CR(CRLIST cr, CRHASHTABLE* CRHASHTABLE){
-    int index = hashing(cr->Courses);
-    CRLIST* position =CRHASHTABLE[index];
-    while((*position) != NULL){
-        if(equal_CR(cr, (*position))){
-            *position = (*position)->next;
-            return CRHASHTABLE;
-        }else{
-            position=&(*position)->next;
+CRHASHTABLE* delete_CR(char* Courses, char* Room, char* Hour,CRHASHTABLE* TABLE);
+CRHASHTABLE* delete_CR(char* Courses, char* Room, char* Hour,CRHASHTABLE* TABLE){
+    bool checkC =true;
+    if(*Courses == '*'){checkC=false;}
+    bool checkR=true;
+    if(*Room== '*'){checkR=false;}
+    if(checkC){
+        int index = hashing(Courses);
+        CRLIST* position =TABLE[index];
+        while((*position) != NULL){
+            //check if the current tuple is what we are looking for
+            if((strcmp(Courses, (*position)->Courses)==0)&&(checkR==false || strcmp(Room, (*position)->Room)==0)){
+                *position = (*position)->next;
+            }else{
+                position=&(*position)->next;
+            }
         }
+        
+        return TABLE;
+    }else{
+        for(int i=0; i<= 1009; i++){
+            CRLIST* position =TABLE[i];
+            while((*position) != NULL){
+                //check if the current tuple is what we are looking for
+                //print_CSG((*position));
+                if((checkR==false || strcmp(Room, (*position)->Room)==0)){
+                    *position = (*position)->next;
+                }else{
+                    position=&(*position)->next;
+                }
+            }
+        }
+        return TABLE;
     }
-    printf("CR tuple you want to delete:");
-    print_CR(cr);
-    printf(" is not in the table\n");
-    return CRHASHTABLE;
 }
 
 //part 2
