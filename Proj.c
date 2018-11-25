@@ -934,15 +934,17 @@ CRDHHASHTABLE* insert_CRDH(CRDHLIST crdh, CRDHHASHTABLE* CRDHHASHTABLE){
 }
 
 //print the table of CRDH
-int print_CRDHTable(CRDHHASHTABLE crdht);
-int print_CRDHTable(CRDHHASHTABLE crdht){
-    for(int i = 0; i < 1009; i++){
-        if (crdht[i] != NULL){
-            print_CRDH(crdht[i]);
+void print_CRDHTable(CRDHHASHTABLE* crdht);
+void print_CRDHTable(CRDHHASHTABLE* crdht){
+    for(int i = 0; i <= 1009; i++){
+        CRDHLIST* position = crdht[i];
+        while((*position) != NULL){
+            print_CRDH(*position);
+            printf("\n");
+            position = &(*position)->next;
+            }
         }
-    }
     printf("\n");
-    return 1;
 }
 
 void join_CRDH(){
