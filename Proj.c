@@ -980,10 +980,10 @@ void projection_CSG(char* course){
 //Example 8.14
 typedef struct CRDH *CRDHLIST;
 struct CRDH {
-    char Courses[5];
-	char Room[30];
-    char Day[2];
-    char Hour[3];
+    char Courses[6];
+    char Room[31];
+    char Day[3];
+    char Hour[5];
     CRDHLIST next;
 };
 typedef CRDHLIST CRDHHASHTABLE[1009];
@@ -1005,19 +1005,23 @@ CRDHLIST new_CRDH( char* Courses, char* Room, char* Day, char* Hour){
     if(strlen(Courses)>5){
         printf("Wrong Courses length");
     }
-	if(strlen(Room)>30){
+    if(strlen(Room)>30){
         printf("Wrong Room length");
     }
     if(strlen(Day)>2){
         printf("Wrong Day length");
     }
-    if(strlen(Hour)>3){
+    if(strlen(Hour)>4){
         printf("Wrong Hour length");
     }
     strncpy(crdh->Courses,Courses,5);
-	strncpy(crdh->Room,Room,30);
+    crdh->Courses[5]='\0';
+    strncpy(crdh->Room,Room,30);
+    crdh->Room[30]='\0';
     strncpy(crdh->Day,Day,2);
-    strncpy(crdh->Hour, Hour,3);
+    crdh->Day[2]='\0';
+    strncpy(crdh->Hour, Hour,4);
+    crdh->Hour[4]='\0';
     crdh->next= NULL;
     return crdh;
 }
