@@ -895,6 +895,17 @@ CRDHLIST new_CRDH( char* Courses, char* Room, char* Day, char* Hour){
     return crdh;
 }
 
+//initialize a CRDH table
+CRDHHASHTABLE* new_CRDHHASHTABLE(void);
+CRDHHASHTABLE* new_CRDHHASHTABLE(){
+    CRDHHASHTABLE * TABLE = (CRDHHASHTABLE*)malloc(sizeof(CRDHHASHTABLE));
+    for(int i=0;i<=1009;i++){
+        CRDHLIST * index = TABLE[i];
+        (*index)=NULL;
+    }
+    return TABLE;
+}
+
 //print a tuple in CRDH
 void print_CRDH(CRDHLIST crdh);
 void print_CRDH(CRDHLIST crdh){
