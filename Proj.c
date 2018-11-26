@@ -1105,38 +1105,55 @@ void allthree(){
 }
 
 int main(void) {
-	//part 1.3
-	//populate the tables with the data given in the figures
-	insert_CSG(new_CSG("CS101", 12345, "A"), Course-StudentID-Grade);
-	insert_CSG(new_CSG("CS101", 67890, "B"), Course-StudentID-Grade);
-	insert_CSG(new_CSG("EE200", 12345, "C"), Course-StudentID-Grade);
-	insert_CSG(new_CSG("EE200", 22222, "B+"), Course-StudentID-Grade);
-	insert_CSG(new_CSG("CS101", 33333, "A-"), Course-StudentID-Grade);
-	insert_CSG(new_CSG("PH100", 67890, "A+"), Course-StudentID-Grade);
-
-	insert_SNAP(new_SNAP(12345, "C. Brown", "12 Apple St.", "555-1234"), StudentID-Name-Address-Phone);
-	insert_SNAP(new_SNAP(67890, "L. Van Pelt", "34 Pear Ave.", "555-5678"), StudentID-Name-Address-Phone);
-	insert_SNAP(new_SNAP(22222, "P. Patty", "56 Grape Blvd.", "555-9999"), StudentID-Name-Address-Phone);
-
-	insert_CP(new_CP("CS101", "CS100"), Course-Prerequisite);
-	insert_CP(new_CP("EE200", "EE005"), Course-Prerequisite);
-	insert_CP(new_CP("EE200", "CS100"), Course-Prerequisite);
-	insert_CP(new_CP("CS120", "CS101"), Course-Prerequisite);
-	insert_CP(new_CP("CS121", "CS120"), Course-Prerequisite);
-	insert_CP(new_CP("CS205", "CS101"), Course-Prerequisite);
-	insert_CP(new_CP("CS206", "CS121"), Course-Prerequisite);
-	insert_CP(new_CP("CS206", "CS205"), Course-Prerequisite);
-
-	insert_CDH(new_CDH("CS101", "M", "9AM"), Course-Day-Hour);
-	insert_CDH(new_CDH("CS101", "W", "9AM"), Course-Day-Hour);
-	insert_CDH(new_CDH("CS101", "F", "9AM"), Course-Day-Hour);
-	insert_CDH(new_CDH("EE200", "Tu", "10AM"), Course-Day-Hour);
-	insert_CDH(new_CDH("EE200", "W", "1PM"), Course-Day-Hour);
-	insert_CDH(new_CDH("EE200", "Th", "10AM"), Course-Day-Hour);
-
-	insert_CR(new_CR("CS101", "Turing Aud."), Course-Room);
-	insert_CR(new_CR("EE200", "25 Ohm Hall"), Course-Room);
-	insert_CR(new_CR("PH100", "Newton Lab."), Course-Room);
+	CSGHASHTABLE * CSGTABLE = new_CSGHASHTABLE();
+    //part 1.3
+    //populate the tables with the data given in the figures
+    insert_CSG(new_CSG("CS101", 12345, "A"), CSGTABLE);
+    insert_CSG(new_CSG("CS101", 67890, "B"), CSGTABLE);
+    insert_CSG(new_CSG("EE200", 12345, "C"), CSGTABLE);
+    insert_CSG(new_CSG("EE200", 22222, "B+"), CSGTABLE);
+    insert_CSG(new_CSG("CS101", 33333, "A-"), CSGTABLE);
+    insert_CSG(new_CSG("PH100", 67890, "A+"), CSGTABLE);
+    print_CSGTable(CSGTABLE);
+    
+    SNAPHASHTABLE* SNAPTABLE= new_SNAPHASHTABLE();
+    
+    insert_SNAP(new_SNAP(12345, "C. Brown", "12 Apple St.", "555-1234"), SNAPTABLE);
+    insert_SNAP(new_SNAP(67890, "L. Van Pelt", "34 Pear Ave.", "555-5678"), SNAPTABLE);
+    insert_SNAP(new_SNAP(22222, "P. Patty", "56 Grape Blvd.", "555-9999"), SNAPTABLE);
+    
+    print_SNAPTable(SNAPTABLE);
+    
+    CPHASHTABLE * CPTABLE =new_CPHASHTABLE();
+    
+    insert_CP(new_CP("CS101", "CS100"), CPTABLE);
+    insert_CP(new_CP("EE200", "EE005"), CPTABLE);
+    insert_CP(new_CP("EE200", "CS100"), CPTABLE);
+    insert_CP(new_CP("CS120", "CS101"), CPTABLE);
+    insert_CP(new_CP("CS121", "CS120"), CPTABLE);
+    insert_CP(new_CP("CS205", "CS101"), CPTABLE);
+    insert_CP(new_CP("CS206", "CS121"), CPTABLE);
+    insert_CP(new_CP("CS206", "CS205"), CPTABLE);
+    
+    print_CPTable(CPTABLE);
+    
+    CDHHASHTABLE * CDHTABLE =new_CDHHASHTABLE();
+    insert_CDH(new_CDH("CS101", "M", "9AM"), CDHTABLE);
+    insert_CDH(new_CDH("CS101", "W", "9AM"), CDHTABLE);
+    insert_CDH(new_CDH("CS101", "F", "9AM"), CDHTABLE);
+    insert_CDH(new_CDH("EE200", "Tu", "10AM"), CDHTABLE);
+    insert_CDH(new_CDH("EE200", "W", "1PM"), CDHTABLE);
+    insert_CDH(new_CDH("EE200", "Th", "10AM"), CDHTABLE);
+    
+    print_CDHTable(CDHTABLE);
+    
+    CRHASHTABLE * CRTABLE = new_CRHASHTABLE();
+    
+    insert_CR(new_CR("CS101", "Turing Aud."), CRTABLE);
+    insert_CR(new_CR("EE200", "25 Ohm Hall"), CRTABLE);
+    insert_CR(new_CR("PH100", "Newton Lab."), CRTABLE);
+    
+    print_CRTable(CRTABLE);
 
 	printf("Find the grade of the student with ID 12345 in CS101: %s\n", print_CSG(lookup((“CS101”, 12345, ∗), Course-StudentId-Grade)));
 	printf("Whether CS120 is a prerequisite of CS205: %s\n", print_CP(lookup((“CS205”, "CS120"), Course-Prerequisite)));
