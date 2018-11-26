@@ -1273,3 +1273,173 @@ int main(void) {
 	
 	return 0;
 }
+
+
+
+//part3
+//Example 8.12
+void select_CSG(char* course, CSGHASHTABLE* CSG){
+	print_CSGTable(lookup_CSG(course, "*", "*", CSG));
+}
+
+//Example 8.13
+void projection_CSG(char* course, CSGHASHTABLE* CSG){
+	CSGHASHTABLE* csgt = lookup_CSG(course, "*", "*", CSG);
+	int csgtNull = 1;
+    	for(int i = 0; i < (int)(sizeof(csgt)/sizeof(csgt[0])) - 1; i++){
+        	CSGLIST* position = csgt[i];
+        	while((*position) != NULL){
+            		csgtNull = 0;
+			printf(%s" ", (*position)->StudentID);
+            		position=&(*position)->next;
+        	}
+    	}
+	if(csgtNUll == 1){
+		printf("Wrong projection");
+	}
+}
+
+//Example 8.14
+typedef struct CRDH *CRDHLIST;
+struct CRDH {
+    char Courses[6];
+    char Room[31];
+    char Day[3];
+    char Hour[5];
+    CRDHLIST next;
+};
+typedef CRDHLIST CRDHHASHTABLE[1009];
+
+//compare two CRDH tuple if they are same or not
+bool equal_CRDH(CRDHLIST crdh1, CRDHLIST crdh2);
+bool equal_CRDH(CRDHLIST crdh1, CRDHLIST crdh2){
+    if(strcmp(crdh1->Courses,crdh2->Courses)==0 && strcmp(crdh1->Day,crdh2->Day)==0 && strcmp(crdh1->Hour,crdh2->Hour)==0
+       && strcmp(crdh1->Room,crdh2->Room)==0){
+        return true;
+    }
+    return false;
+}
+
+//new CRDH tuple
+CRDHLIST new_CRDH( char* Courses, char* Room, char* Day, char* Hour);
+CRDHLIST new_CRDH( char* Courses, char* Room, char* Day, char* Hour){
+    CRDHLIST crdh = (CRDHLIST)malloc(sizeof(struct CRDH));
+    if(strlen(Courses)>5){
+        printf("Wrong Courses length");
+    }
+    if(strlen(Room)>30){
+        printf("Wrong Room length");
+    }
+    if(strlen(Day)>2){
+        printf("Wrong Day length");
+    }
+    if(strlen(Hour)>4){
+        printf("Wrong Hour length");
+    }
+    strncpy(crdh->Courses,Courses,5);
+    crdh->Courses[5]='\0';
+    strncpy(crdh->Room,Room,30);
+    crdh->Room[30]='\0';
+    strncpy(crdh->Day,Day,2);
+    crdh->Day[2]='\0';
+    strncpy(crdh->Hour, Hour,4);
+    crdh->Hour[4]='\0';
+    crdh->next= NULL;
+    return crdh;
+}
+
+//initialize a CRDH table
+CRDHHASHTABLE* new_CRDHHASHTABLE(void);
+CRDHHASHTABLE* new_CRDHHASHTABLE(){
+    CRDHHASHTABLE * TABLE = (CRDHHASHTABLE*)malloc(sizeof(CRDHHASHTABLE));
+    for(int i=0;i<=1009;i++){
+        CRDHLIST * index = TABLE[i];
+        (*index)=NULL;
+    }
+    return TABLE;
+}
+
+//print a tuple in CRDH
+void print_CRDH(CRDHLIST crdh);
+void print_CRDH(CRDHLIST crdh){
+    if (crdh != NULL){
+        printf("(%s, %s, %s, %s) ", crdh->Courses, crdh->Room, crdh->Day, crdh->Hour);
+    }
+}
+
+//insert CRDH tuple into CRDHTABLE
+CRDHHASHTABLE* insert_CRDH(CRDHLIST crdh, CRDHHASHTABLE* CRDHHASHTABLE);
+CRDHHASHTABLE* insert_CRDH(CRDHLIST crdh, CRDHHASHTABLE* CRDHHASHTABLE){
+    int index = hashing(crdh->Courses);
+    CRDHLIST* position =CRDHHASHTABLE[index];
+    while((*position) != NULL){
+        if(equal_CRDH(crdh, (*position))){
+            printf("CRDH tuple :");
+            print_CRDH(crdh);
+            printf(" already exists\n");
+            return CRDHHASHTABLE;
+        }else{
+            position=&(*position)->next;
+        }
+    }
+    *position = crdh;
+    return CRDHHASHTABLE;
+}
+
+//print the table of CRDH
+void print_CRDHTable(CRDHHASHTABLE* crdht);
+void print_CRDHTable(CRDHHASHTABLE* crdht){
+    for(int i = 0; i <= 1009; i++){
+        CRDHLIST* position = crdht[i];
+        while((*position) != NULL){
+            print_CRDH(*position);
+            printf("\n");
+            position = &(*position)->next;
+            }
+        }
+    printf("\n");
+}
+
+void join_CRDH(CDHHASHTABLE* CDH, CRHASHTABLE* CR){
+	CRDHTable CRDH = new_CRDHHASHTABLE();
+	int cdhtNull = 1;
+    	int crtNull = 1;
+	for(int i = 0; i < 1009; i++){
+		CDHLIST* positionCDH = CDH[i];
+        	while((*positionCDH) != NULL){
+            		cdhtNull = 0;
+			CRLIST* positionCR = CR[i];
+			while((*positionCR) != NULL){
+            			crtNull = 0;
+				if(strcmp((*positionCDH)->Courses, (*positionCR)->Courses) == 0){
+					insert_CRDH(new_CRDH((*positionCDH)->Courses, (*positionCR)->Room, (*positionCDH)->Day, (*positionCDH)->Hour), CRDH);
+				}
+            			positionCR=&(*positionCR)->next;
+        		}
+		positionCDH=&(*positionCDH)->next;
+        	}
+    	}
+	print_CRDHTable(CRDH);
+	if(cdhtNull == 1 || crNull == 1){
+		printf("Wrong join");
+	}
+}
+
+//Example 8.15
+void allthree()){
+	CRDHHASHTABLE crdht = join_CRDH();
+	int crdhtNull = 1;
+    	for(int i = 0; i < 1009; i++){
+        	CRDHLIST* position = crdht[i];
+        	while((*position) != NULL){
+            		rdhtNull = 0;
+			if(strcmp(crdht[i]->Room, "Turing Aud.") == 0){
+				printf("(%s, %s) ", crdht[i]->Day, crdht[i]->Hour);
+			}
+            		position=&(*position)->next;
+        	}
+    	}
+	if(crdhtNull == 1){
+		printf("Wrong allthree");
+	}
+}
