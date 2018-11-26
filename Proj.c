@@ -919,6 +919,66 @@ CRHASHTABLE* delete_CR(char* Courses, char* Room, char* Hour,CRHASHTABLE* TABLE)
     }
 }
 
+//if the CSGTABLE is null return true;
+bool NULL_CSGTABLE(CSGHASHTABLE * TABLE);
+bool NULL_CSGTABLE(CSGHASHTABLE * TABLE){
+    for(int i=0; i<= 1009; i++){
+        CSGLIST* position =TABLE[i];
+        if((*position) != NULL){
+            return false;;
+        }
+    }
+    return true;
+}
+
+//if the SNAPTABLE is null return true;
+bool NULL_SNAPTABLE(SNAPHASHTABLE * TABLE);
+bool NULL_SNAPTABLE(SNAPHASHTABLE * TABLE){
+    for(int i=0; i<= 1009; i++){
+        SNAPLIST* position =TABLE[i];
+        if((*position) != NULL){
+            return false;;
+        }
+    }
+    return true;
+}
+
+//if the CPTABLE is null return true;
+bool NULL_CPTABLE(CPHASHTABLE * TABLE);
+bool NULL_CPTABLE(CPHASHTABLE * TABLE){
+    for(int i=0; i<= 1009; i++){
+        CPLIST* position =TABLE[i];
+        if((*position) != NULL){
+            return false;;
+        }
+    }
+    return true;
+}
+
+//if the CDHTABLE is null return true;
+bool NULL_CDHTABLE(CDHHASHTABLE * TABLE);
+bool NULL_CDHTABLE(CDHHASHTABLE * TABLE){
+    for(int i=0; i<= 1009; i++){
+        CDHLIST* position =TABLE[i];
+        if((*position) != NULL){
+            return false;;
+        }
+    }
+    return true;
+}
+
+//if the CRTABLE is null return true;
+bool NULL_CRTABLE(CRHASHTABLE * TABLE);
+bool NULL_CRTABLE(CRHASHTABLE * TABLE){
+    for(int i=0; i<= 1009; i++){
+        CRLIST* position =TABLE[i];
+        if((*position) != NULL){
+            return false;;
+        }
+    }
+    return true;
+}
+
 //part 2
 void getStudCoursGrade(char* name, char* course){
 	SNAPHASHTABLE* idname = lookup_SNAP("*", name, "*", "*", StudentID-Name-Address-Phone);
@@ -987,6 +1047,19 @@ struct CRDH {
     CRDHLIST next;
 };
 typedef CRDHLIST CRDHHASHTABLE[1009];
+
+
+//if the CRDHTABLE is null return true;
+bool NULL_CRDHTABLE(CRDHHASHTABLE * TABLE);
+bool NULL_CRDHTABLE(CRDHHASHTABLE * TABLE){
+    for(int i=0; i<= 1009; i++){
+        CRDHLIST* position =TABLE[i];
+        if((*position) != NULL){
+            return false;;
+        }
+    }
+    return true;
+}
 
 //compare two CRDH tuple if they are same or not
 bool equal_CRDH(CRDHLIST crdh1, CRDHLIST crdh2);
